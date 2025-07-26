@@ -1,13 +1,12 @@
 cmake_minimum_required(VERSION 3.20)
 project(MyGraphicsProject CXX)
 
-find_package(imgui CONFIG REQUIRED)
-find_package(glfw3 CONFIG REQUIRED)
-find_package(glew CONFIG REQUIRED)
-find_package(OpenGL REQUIRED)
-find_package(implot REQUIRED)
+# Suppress LNK4099 warning on MSVC (Visual Studio)
+if (MSVC)
+    add_link_options(/ignore:4099)
+endif()
 
-add_subdirectory(3rdparty/imnodes)
+
 
 add_executable(${PROJECT_NAME}
     src/main.cpp
@@ -23,12 +22,22 @@ add_executable(${PROJECT_NAME}
 
 target_link_libraries(${PROJECT_NAME}
     PRIVATE
-        imgui::imgui
-        implot::implot
-        glfw
-        GLEW::GLEW
-        opengl::opengl
-	imnodes
+
+#	imnodes
+    thirdparty
 )
 
+add_subdirectory(3rdparty)
+target_link_libraries(${PROJECT_NAME} PRIVATE thirdparty)
+
 target_include_directories(${PROJECT_NAME} PRIVATE "${IMGUI_BACKEND_DIR}")
+
+
+
+#set startup project for visual studio
+
+if (MSVC)
+    set_property(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY VS_STARTUP_PROJECT ${PROJECT_NAME})
+endif()
+
+

@@ -6,11 +6,11 @@ class MyGraphicsProjectConan(ConanFile):
     version = "1.0"
     settings = "os", "compiler", "build_type", "arch"
     requires = (
-        "imgui/1.90.5",
+        "imgui/1.92.0",
         "glfw/3.4",
         "glew/2.2.0",
         "opengl/system",
-        "implot/0.16",
+        
 
     )
     generators = "CMakeDeps", "CMakeToolchain"
