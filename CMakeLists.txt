@@ -10,15 +10,16 @@ endif()
 
 add_executable(${PROJECT_NAME}
     src/main.cpp
-   src/imgui_impl_glfw.cpp
-   src/imgui_impl_opengl3.cpp
-   #"${IMGUI_BACKEND_DIR}/imgui_impl_glfw.cpp"
-   # "${IMGUI_BACKEND_DIR}/imgui_impl_opengl3.cpp"
-   
-   #text files
+    src/imgui_impl_glfw.cpp
+    src/imgui_impl_opengl3.cpp
+    #"${IMGUI_BACKEND_DIR}/imgui_impl_glfw.cpp"
+    #"${IMGUI_BACKEND_DIR}/imgui_impl_opengl3.cpp"
+    # text files
     conanfile.py
-
 )
+
+# Ensure Visual Studio shows the conanfile without attempting to compile it
+set_source_files_properties(conanfile.py PROPERTIES HEADER_FILE_ONLY TRUE)
 
 target_link_libraries(${PROJECT_NAME}
     PRIVATE
