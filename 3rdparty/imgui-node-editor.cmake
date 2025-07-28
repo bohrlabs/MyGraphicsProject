@@ -20,11 +20,15 @@ file(GLOB IMGUI_NODE_EDITOR_SOURCES
 add_library(imgui-node-editor STATIC)
 
 target_sources(imgui-node-editor PRIVATE
-${IMGUI_NODE_EDITOR_HEADERS}
-${IMGUI_NODE_EDITOR_SOURCES}
-imgui-node-editor.cmake
-
+    ${IMGUI_NODE_EDITOR_HEADERS}
+    ${IMGUI_NODE_EDITOR_SOURCES}
+    # Make the build script visible in IDEs without compiling it
+    imgui-node-editor.cmake
 )
+
+# Ensure Visual Studio treats the CMake file as a header-only source so it is
+# shown in the project but not compiled
+set_source_files_properties(imgui-node-editor.cmake PROPERTIES HEADER_FILE_ONLY TRUE)
 
 # Set include directories for consumers
 target_include_directories(imgui-node-editor PUBLIC
